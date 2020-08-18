@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>631</width>
+    <height>665</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CLIENT</string>
+  </property>
+  <widget class="QPushButton" name="startButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Connect to Server</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="closeButton">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>10</y>
+     <width>80</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="log">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>430</y>
+     <width>611</width>
+     <height>191</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="messageEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>630</y>
+     <width>511</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>#getCurrentTasks</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendButton">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>630</y>
+     <width>80</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="disconnectButton">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>10</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Disconnect </string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="hostEdit">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>10</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>127.0.0.1</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="portEdit">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>10</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>58583</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>:</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>601</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="currentTasks">
+    <attribute name="title">
+     <string>currentTasks</string>
+    </attribute>
+    <widget class="QTableView" name="currentTasksTableView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>571</width>
+       <height>221</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Tab 2</string>
+    </attribute>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
