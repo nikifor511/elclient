@@ -1,4 +1,4 @@
-#include "mainwidget.h"
+﻿#include "mainwidget.h"
 #include "ui_mainwidget.h"
 
 MainWidget::MainWidget(QWidget *parent) :
@@ -81,4 +81,16 @@ void MainWidget::on_disconnectButton_clicked()
     cli->stop();
     ui->startButton->setEnabled(true);
     ui->disconnectButton->setEnabled(false);
+}
+
+void MainWidget::on_getTaskButton_clicked()
+{
+    QItemSelectionModel *select = ui->currentTasksTableView->selectionModel();
+    if (select->hasSelection())
+    {
+        QModelIndexList indexes = select->selection().indexes();
+        int taskID = ui->currentTasksTableView->model()->data(ui->currentTasksTableView->model()->index(indexes[0].row(),0)).toInt();
+        cli->send("#iwantgettask" + QString::number(taskID));
+        qDebug() << QString::number(taskID);
+    }
 }

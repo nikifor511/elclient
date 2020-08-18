@@ -20,6 +20,7 @@ public:
 private slots:
     void on_closeButton_clicked();
     void on_startButton_clicked();
+    void on_getTaskButton_clicked();
 
     void log_to_ui(QString log_str);
     void tasksToTable(const QJsonArray tasks);    //TODO *tasks
@@ -27,6 +28,8 @@ private slots:
     void on_sendButton_clicked();
 
     void on_disconnectButton_clicked();
+
+
 
 private:
     Ui::MainWidget *ui;

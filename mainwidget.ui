@@ -146,9 +146,9 @@
    <property name="currentIndex">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="currentTasks">
+   <widget class="QWidget" name="freeTasks">
     <attribute name="title">
-     <string>currentTasks</string>
+     <string>free Tasks</string>
     </attribute>
     <widget class="QTableView" name="currentTasksTableView">
      <property name="geometry">
@@ -160,10 +160,23 @@
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="getTaskButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>240</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Get Task</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QWidget" name="tab_2">
+   <widget class="QWidget" name="currentTask">
     <attribute name="title">
-     <string>Tab 2</string>
+     <string>current Task</string>
     </attribute>
    </widget>
   </widget>
