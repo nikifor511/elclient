@@ -51,6 +51,7 @@ void MainWidget::on_sendButton_clicked()
 void MainWidget::log_to_ui(QString log_str)
 {
     ui->log->append(log_str);
+    int y =0;
 }
 
 void MainWidget::tasksToTable(const QJsonArray tasks)
