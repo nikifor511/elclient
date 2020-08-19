@@ -59,7 +59,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>#getCurrentTasks</string>
+    <string>#getFreeTasks</string>
    </property>
   </widget>
   <widget class="QPushButton" name="sendButton">

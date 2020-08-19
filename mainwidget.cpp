@@ -86,11 +86,13 @@ void MainWidget::on_disconnectButton_clicked()
 void MainWidget::on_getTaskButton_clicked()
 {
     QItemSelectionModel *select = ui->currentTasksTableView->selectionModel();
-    if (select->hasSelection())
-    {
-        QModelIndexList indexes = select->selection().indexes();
-        int taskID = ui->currentTasksTableView->model()->data(ui->currentTasksTableView->model()->index(indexes[0].row(),0)).toInt();
-        cli->send("#iwantgettask" + QString::number(taskID));
-        qDebug() << QString::number(taskID);
-    }
+    //bool hasSelection = false;
+    if (select != nullptr)
+        if (select->hasSelection())
+        {
+            QModelIndexList indexes = select->selection().indexes();
+            int taskID = ui->currentTasksTableView->model()->data(ui->currentTasksTableView->model()->index(indexes[0].row(),0)).toInt();
+            cli->send("#iwantgettask" + QString::number(taskID));
+            qDebug() << QString::number(taskID);
+        }
 }

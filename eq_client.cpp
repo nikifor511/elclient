@@ -51,11 +51,11 @@ void eq_client::onReadyRead()
     QString message = m_socket->readAll();
     qDebug() << message;
 
-    if (message.indexOf("#currentTasks") == 0) {
-        message.replace("#currentTasks", "");
-        QJsonDocument currentTasksJD = QJsonDocument::fromJson(message.toUtf8());
-        QJsonArray currentTasks = currentTasksJD.array();
-        emit tasksToTable(currentTasks);
+    if (message.indexOf("#freeTasks") > -1) {
+        message.replace("#freeTasks", "");
+        QJsonDocument freeTasksJD = QJsonDocument::fromJson(message.toUtf8());
+        QJsonArray freeTasks = freeTasksJD.array();
+        emit tasksToTable(freeTasks);
         emit log_to_ui(message);
     }
 }
