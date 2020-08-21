@@ -35,28 +35,45 @@ void eq_client::stop()
     m_socket->disconnectFromHost();
 }
 
-void eq_client::getTasks()
-{
-    m_socket->write("#get_tasks");
-}
-
-
 void eq_client::send(QString message)
 {
     m_socket->write(message.toUtf8().trimmed());
+}
+
+QString getSubMessage(QString &message, const QString  controlStr)
+{
+    int controlStrIndex = message.indexOf(controlStr);
+    int endOfCurrentMessage = message.indexOf("$", controlStrIndex);
+    QString subMessage = message.mid(controlStrIndex, endOfCurrentMessage - controlStrIndex + 1);
+    message.replace(subMessage, "");
+    subMessage = subMessage.left(subMessage.lastIndexOf(QChar('$')));
+    subMessage.replace(controlStr, "");
+    return  subMessage;
 }
 
 void eq_client::onReadyRead()
 {
     QString message = m_socket->readAll();
     qDebug() << message;
+    emit log_to_ui(message);
 
-    if (message.indexOf("#freeTasks") > -1) {
-        message.replace("#freeTasks", "");
-        QJsonDocument freeTasksJD = QJsonDocument::fromJson(message.toUtf8());
+    if ((message.indexOf("#freeTasks") > -1) &&  (message.indexOf("#yourcurrenttask") > -1)) {
+        int y =0;
+    }
+
+    if (message.indexOf("#freeTasks") > -1) {        
+
+        QJsonDocument freeTasksJD = QJsonDocument::fromJson(getSubMessage(message, "#freeTasks").toUtf8());
         QJsonArray freeTasks = freeTasksJD.array();
         emit tasksToTable(freeTasks);
-        emit log_to_ui(message);
+    }
+
+    if (message.indexOf("#yourcurrenttask") > -1) {
+
+        QJsonDocument currentTaskJD = QJsonDocument::fromJson(getSubMessage(message, "#yourcurrenttask").toUtf8());
+        QJsonObject currentTask = currentTaskJD.array()[0].toObject();
+
+
     }
 }
 

@@ -16,7 +16,6 @@ public:
     void send(QString message);
     bool start(QString host, int port);
     void stop();
-    void getTasks();
 
 
 private slots:
@@ -30,9 +29,12 @@ private slots:
 signals:
     void log_to_ui(QString log_str);
     void tasksToTable(const QJsonArray tasks);
+    void enableCurrentTask(QJsonObject currentTask);
+
 
 private:
     QTcpSocket  *m_socket = NULL;
+
 };
 
 #endif // EQ_CLIENT_H

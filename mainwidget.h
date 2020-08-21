@@ -21,15 +21,12 @@ private slots:
     void on_closeButton_clicked();
     void on_startButton_clicked();
     void on_getTaskButton_clicked();
+    void on_sendButton_clicked();
+    void on_disconnectButton_clicked();
 
     void log_to_ui(QString log_str);
     void tasksToTable(const QJsonArray tasks);    //TODO *tasks
-
-    void on_sendButton_clicked();
-
-    void on_disconnectButton_clicked();
-
-
+    void enableCurrentTask(QJsonObject currentTask);
 
 private:
     Ui::MainWidget *ui;

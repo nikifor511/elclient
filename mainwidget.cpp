@@ -28,7 +28,7 @@ void MainWidget::on_startButton_clicked()
     }
     if (cli->start(ui->hostEdit->text(), ui->portEdit->text().toInt()))
     {
-
+        cli->send("#getFreeTasks");
         ui->startButton->setEnabled(false);
         ui->disconnectButton->setEnabled(true);
     } else {
@@ -51,6 +51,7 @@ void MainWidget::on_sendButton_clicked()
 void MainWidget::log_to_ui(QString log_str)
 {
     ui->log->append(log_str);
+    ui->log->append("--------------------------------");
     int y =0;
 }
 
@@ -73,7 +74,12 @@ void MainWidget::tasksToTable(const QJsonArray tasks)
         model->appendRow(items);
         qDebug() << "\n";
     }
-    ui->currentTasksTableView->setModel(model);
+    ui->freeTasksTableView->setModel(model);
+}
+
+void MainWidget::enableCurrentTask(QJsonObject currentTask)
+{
+    page = ui->tabwidget.findChild(QWidget, tabname)
 }
 
 void MainWidget::on_disconnectButton_clicked()
@@ -85,13 +91,13 @@ void MainWidget::on_disconnectButton_clicked()
 
 void MainWidget::on_getTaskButton_clicked()
 {
-    QItemSelectionModel *select = ui->currentTasksTableView->selectionModel();
+    QItemSelectionModel *select = ui->freeTasksTableView->selectionModel();
     //bool hasSelection = false;
     if (select != nullptr)
         if (select->hasSelection())
         {
             QModelIndexList indexes = select->selection().indexes();
-            int taskID = ui->currentTasksTableView->model()->data(ui->currentTasksTableView->model()->index(indexes[0].row(),0)).toInt();
+            int taskID = ui->freeTasksTableView->model()->data(ui->freeTasksTableView->model()->index(indexes[0].row(),0)).toInt();
             cli->send("#iwantgettask" + QString::number(taskID));
             qDebug() << QString::number(taskID);
         }
