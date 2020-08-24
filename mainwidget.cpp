@@ -25,6 +25,7 @@ void MainWidget::on_startButton_clicked()
         cli = new eq_client();
         connect(cli, &eq_client::log_to_ui, this, &MainWidget::log_to_ui);
         connect(cli, &eq_client::tasksToTable, this, &MainWidget::tasksToTable);
+        connect(cli, &eq_client::enableCurrentTask, this, &MainWidget::enableCurrentTask);
     }
     if (cli->start(ui->hostEdit->text(), ui->portEdit->text().toInt()))
     {
@@ -55,31 +56,32 @@ void MainWidget::log_to_ui(QString log_str)
     int y =0;
 }
 
-void MainWidget::tasksToTable(const QJsonArray tasks)
+void MainWidget::tasksToTable(const QList<Task*> tasks)
 {
     QStandardItemModel *model = new QStandardItemModel(0, 0, this);
 
-    foreach (const QJsonValue &task, tasks) {
-        QJsonObject taskObj = task.toObject();
+    foreach (const Task* task, tasks) {
         QList<QStandardItem *> items;
-        foreach(const QString& key, taskObj.keys()) {
-            QJsonValue value = taskObj.value(key);
-            //qDebug() << "Key = " << key << ", Value = " << value.toString();
-            if (value.type() == QJsonValue::Double) {
-                items.append(new QStandardItem(QString::number(value.toInt())));
-            } else {
-                items.append(new QStandardItem(value.toString()));
-            }
-        }
+        items.append(new QStandardItem(QString::number(task->getID())));
+        QDateTime tBeginDT = task->getTBegin();
+        QString tBeginStr = tBeginDT.toString();
+        items.append(new QStandardItem(tBeginStr));
+        items.append(new QStandardItem(task->getTAccept().toString("yyyy-MM-dd hh:mm:ss")));
+        items.append(new QStandardItem(task->getTEnd().toString("yyyy-MM-dd hh:mm:ss")));
+        items.append(new QStandardItem(task->getTicket()));
+        items.append(new QStandardItem(QString::number(task->getOperatorID())));
+        items.append(new QStandardItem(task->getServiceName()));
         model->appendRow(items);
-        qDebug() << "\n";
     }
     ui->freeTasksTableView->setModel(model);
 }
 
 void MainWidget::enableCurrentTask(QJsonObject currentTask)
 {
-    page = ui->tabwidget.findChild(QWidget, tabname)
+    ui->tabWidget->setTabEnabled(1, true);
+    ui->tabWidget->setCurrentIndex(1);
+    //ui->tbeginLabel->setText()
+
 }
 
 void MainWidget::on_disconnectButton_clicked()

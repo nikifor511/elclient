@@ -4,6 +4,9 @@
 #include <QtNetwork>
 #include <QTcpSocket>
 #include <QObject>
+#include <QDateTime>
+
+#include "task.h"
 
 
 class eq_client: public QObject
@@ -17,18 +20,15 @@ public:
     bool start(QString host, int port);
     void stop();
 
-
 private slots:
     void onReadyRead();
     void onSocketError();
     void onDisconnect();
-
-
-
+    QList<Task *> jsonStrToTaskList(const QString message);
 
 signals:
     void log_to_ui(QString log_str);
-    void tasksToTable(const QJsonArray tasks);
+    void tasksToTable(const QList<Task*> tasks);
     void enableCurrentTask(QJsonObject currentTask);
 
 

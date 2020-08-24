@@ -63,15 +63,15 @@ void eq_client::onReadyRead()
 
     if (message.indexOf("#freeTasks") > -1) {        
 
-        QJsonDocument freeTasksJD = QJsonDocument::fromJson(getSubMessage(message, "#freeTasks").toUtf8());
-        QJsonArray freeTasks = freeTasksJD.array();
+        QList<Task *> freeTasks = this->jsonStrToTaskList(getSubMessage(message, "#freeTasks"));
         emit tasksToTable(freeTasks);
     }
 
     if (message.indexOf("#yourcurrenttask") > -1) {
 
         QJsonDocument currentTaskJD = QJsonDocument::fromJson(getSubMessage(message, "#yourcurrenttask").toUtf8());
-        QJsonObject currentTask = currentTaskJD.array()[0].toObject();
+        QJsonObject currentTask = currentTaskJD.object();
+        emit enableCurrentTask(currentTask);
 
 
     }
@@ -88,4 +88,25 @@ void eq_client::onSocketError()
 void eq_client::onDisconnect()
 {
     emit log_to_ui("Disconnected from server");
+}
+
+QList<Task *> eq_client::jsonStrToTaskList(const QString message)
+{
+    QJsonDocument tasksJD = QJsonDocument::fromJson(message.toUtf8());
+    QJsonArray tasks = tasksJD.array();
+    QList<Task *> res;
+    foreach (const QJsonValue &task, tasks) {
+        QJsonObject task_obj = task.toObject();
+        QString tBeginStr = task_obj["tBegin"].toString();
+        QDateTime tBeginDT = QDateTime::fromString(tBeginStr, "yyyy-MM-ddThh:mm:ss.zzz");
+        Task *sameTask = new Task(task_obj["ID"].toInt(),
+                QDateTime::fromString(task_obj["tBegin"].toString(), "yyyy-MM-dd hh:mm:ss"),
+                QDateTime::fromString(task_obj["tAccept"].toString(), "yyyy-MM-ddThh:mm:ss"),
+                QDateTime::fromString(task_obj["tEnd"].toString(), "yyyy-MM-ddThh:mm:ss"),
+                task_obj["ticket"].toString(),
+                task_obj["operatorID"].toInt(),
+                task_obj["serviceName"].toString());
+        res.append(sameTask);
+    }
+    return res;
 }

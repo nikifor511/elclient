@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         eq_client.cpp \
         main.cpp \
-        mainwidget.cpp
+        mainwidget.cpp \
+        task.cpp
 
 HEADERS += \
         eq_client.h \
-        mainwidget.h
+        mainwidget.h \
+        task.h
 
 FORMS += \
         mainwidget.ui

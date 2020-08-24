@@ -25,7 +25,7 @@ private slots:
     void on_disconnectButton_clicked();
 
     void log_to_ui(QString log_str);
-    void tasksToTable(const QJsonArray tasks);    //TODO *tasks
+    void tasksToTable(const QList<Task*> tasks);    //TODO *tasks
     void enableCurrentTask(QJsonObject currentTask);
 
 private:
