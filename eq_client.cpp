@@ -97,12 +97,18 @@ QList<Task *> eq_client::jsonStrToTaskList(const QString message)
     QList<Task *> res;
     foreach (const QJsonValue &task, tasks) {
         QJsonObject task_obj = task.toObject();
-        QString tBeginStr = task_obj["tBegin"].toString();
-        QDateTime tBeginDT = QDateTime::fromString(tBeginStr, "yyyy-MM-ddThh:mm:ss.zzz");
+
+        QDateTime tBeginDT = QDateTime::fromString(task_obj["tBegin"].toString(), "yyyy-MM-ddThh:mm:ss");
+        tBeginDT.setTimeSpec(Qt::UTC);
+        QDateTime tAcceptDT = QDateTime::fromString(task_obj["tAccept"].toString(), "yyyy-MM-ddThh:mm:ss");
+        tAcceptDT.setTimeSpec(Qt::UTC);
+        QDateTime tEndDT = QDateTime::fromString(task_obj["tEnd"].toString(), "yyyy-MM-ddThh:mm:ss");
+        tEndDT.setTimeSpec(Qt::UTC);
+
         Task *sameTask = new Task(task_obj["ID"].toInt(),
-                QDateTime::fromString(task_obj["tBegin"].toString(), "yyyy-MM-dd hh:mm:ss"),
-                QDateTime::fromString(task_obj["tAccept"].toString(), "yyyy-MM-ddThh:mm:ss"),
-                QDateTime::fromString(task_obj["tEnd"].toString(), "yyyy-MM-ddThh:mm:ss"),
+                tBeginDT,
+                tAcceptDT,
+                tEndDT,
                 task_obj["ticket"].toString(),
                 task_obj["operatorID"].toInt(),
                 task_obj["serviceName"].toString());

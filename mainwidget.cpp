@@ -66,8 +66,8 @@ void MainWidget::tasksToTable(const QList<Task*> tasks)
         QDateTime tBeginDT = task->getTBegin();
         QString tBeginStr = tBeginDT.toString();
         items.append(new QStandardItem(tBeginStr));
-        items.append(new QStandardItem(task->getTAccept().toString("yyyy-MM-dd hh:mm:ss")));
-        items.append(new QStandardItem(task->getTEnd().toString("yyyy-MM-dd hh:mm:ss")));
+        items.append(new QStandardItem(task->getTAccept().toString("yyyy-MM-dd hh:mm:SS")));
+        items.append(new QStandardItem(task->getTEnd().toString("yyyy-MM-dd hh:mm:SS")));
         items.append(new QStandardItem(task->getTicket()));
         items.append(new QStandardItem(QString::number(task->getOperatorID())));
         items.append(new QStandardItem(task->getServiceName()));
